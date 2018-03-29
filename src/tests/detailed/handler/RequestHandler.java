@@ -24,6 +24,7 @@ import org.cef.network.CefPostDataElement;
 import org.cef.network.CefRequest;
 import org.cef.network.CefResponse;
 
+import tests.detailed.MyURLRequestClient;
 import tests.detailed.dialog.CertErrorDialog;
 import tests.detailed.dialog.PasswordDialog;
 
@@ -127,6 +128,14 @@ public class RequestHandler extends CefRequestHandlerAdapter {
 
         if (request.getURL().endsWith("seterror.test/")) {
             return new ResourceSetErrorHandler();
+        }
+        
+        if(request.getURL().startsWith("https://www.evisa.gov.kh/public/assets/frontend/form/captcha/securimage/securimage_show.php") ||
+        		request.getURL().startsWith("https://indianvisaonline.gov.in/visa/captcha")) {
+        	VerifyCodeResourceHandler han = new VerifyCodeResourceHandler();
+        	MyURLRequestClient myClient = new MyURLRequestClient(han);
+        	myClient.sendRequest(request);
+        	return han;
         }
 
         return null;

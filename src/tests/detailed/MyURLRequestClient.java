@@ -1,11 +1,15 @@
 package tests.detailed;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.cef.callback.CefAuthCallback;
 import org.cef.callback.CefCookieVisitor;
@@ -83,11 +87,15 @@ public class MyURLRequestClient implements CefURLRequestClient {
         boolean isText = response.getHeader("Content-Type").startsWith("text");
         updateStr += response.toString();
         System.out.println(updateStr + isText);
-        File imageFile = new File(Configuration.getValue("verify_code_save_path")+"\\code.jpg");
+        File imageFile = new File(Configuration.getValue("verify_code_save_path")+"\\code_tmp.png");
         try {
         	FileOutputStream outStream = new FileOutputStream(imageFile);
 			outStream.write(byteStream_.toByteArray());
 			outStream.close();
+			BufferedImage img = ImageIO.read(imageFile);
+			BufferedImage newBufferedImage = new BufferedImage(img.getWidth(),img.getHeight(), BufferedImage.TYPE_INT_RGB);
+			newBufferedImage.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
+			ImageIO.write(newBufferedImage,"jpg", new File(Configuration.getValue("verify_code_save_path")+"\\code.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

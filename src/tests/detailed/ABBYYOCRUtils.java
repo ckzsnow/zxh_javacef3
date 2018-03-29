@@ -109,6 +109,6 @@ public class ABBYYOCRUtils {
 	}
 	
 	public static void main(String[] args){
-		ABBYYOCRUtils.ocrImage("C:\\Users\\Administrator\\Desktop\\tt.png");
+		ABBYYOCRUtils.ocrImage("C:\\Users\\Administrator\\Desktop\\code.jpg");
 	}
 }

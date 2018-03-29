@@ -15,6 +15,8 @@ import org.cef.handler.CefMessageRouterHandlerAdapter;
 
 import com.alibaba.fastjson.JSON;
 
+import tests.detailed.ABBYYOCRUtils;
+import tests.detailed.Configuration;
 import tests.detailed.MySqlUtils;
 import tests.detailed.TaskUtils;
 
@@ -163,6 +165,10 @@ public class CefQueryMessageRouterHandler extends CefMessageRouterHandlerAdapter
         	TaskUtils.currentStepProcessing = false;
         	TaskUtils.currentTaskStep = TaskUtils.currentTaskStep + Integer.valueOf(steps);
         	callback.success(new StringBuilder(("ok")).toString());
+            return true;
+        } else if(request.indexOf("GetIndianCode:") == 0) {
+        	String ret = ABBYYOCRUtils.ocrImage(Configuration.getValue("verify_code_save_path")+"\\code.jpg");
+        	callback.success(ret);
             return true;
         }
         return false;
