@@ -14,7 +14,7 @@ bbzweb.iml
 cef3lib/
 lib/
 config.txt
-hs_err_*
+hs_err_.*
 javacef3*
 bin/
 .fatjar
