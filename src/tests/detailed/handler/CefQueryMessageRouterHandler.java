@@ -35,7 +35,9 @@ public class CefQueryMessageRouterHandler extends CefMessageRouterHandlerAdapter
             	int posY = Integer.valueOf(posxy[1]);
             	int width = Integer.valueOf(posxy[2]);
             	int height = Integer.valueOf(posxy[3]);
-            	TaskUtils.fileUploadFilePath = (String)TaskUtils.dataMap.get(posxy[4]);
+            	if(posxy.length>4 && posxy[4]!= null && posxy[4]!= "") {
+            		TaskUtils.fileUploadFilePath = (String)TaskUtils.dataMap.get(posxy[4]);
+            	}
             	System.out.println("TaskUtils.fileUploadFilePath : " + TaskUtils.fileUploadFilePath);
             	browser.sendMouseEvent(new MouseEvent(browser.getUIComponent(), MouseEvent.MOUSE_PRESSED, 100, 0, posX+(width/2), posY+(height/2), 1, false, MouseEvent.BUTTON1));
     			try {
