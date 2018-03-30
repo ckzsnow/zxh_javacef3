@@ -11,9 +11,9 @@ import com.alibaba.fastjson.JSON;
 
 public class MySqlUtils {
 
-	private static final String URL = "jdbc:mysql://117.48.211.42:3306/autofillform?useUnicode=true&characterEncoding=UTF-8";
+	private static final String URL = "jdbc:mysql://120.132.93.249:3306/autofillform?useUnicode=true&characterEncoding=UTF-8";
     private static final String NAME = "root";
-    private static final String PASSWORD = "Cckzcbm110";
+    private static final String PASSWORD = "zaq12wsx";
 	
     static {
 	    try {  

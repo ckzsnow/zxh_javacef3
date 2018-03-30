@@ -44,7 +44,6 @@ public class ABBYYOCRUtils {
 					FRENGINE_DEV_LICENSE, 
 					FRENGINE_DEV_SECRET);
 			engine.LoadPredefinedProfile("TextExtraction_Accuracy");
-	        document = engine.CreateFRDocument();
 	        documentProcessingParams = engine.CreateDocumentProcessingParams();
 			//documentProcessingParams.getPageProcessingParams().getRecognizerParams().SetPredefinedTextLanguage("English");
 			documentProcessingParams.getPageProcessingParams().getRecognizerParams().setTextLanguage(getTextLanguageForNUMANDZM());
@@ -101,10 +100,13 @@ public class ABBYYOCRUtils {
 	
 	public static String ocrImage(String path){
 		String newPath = filterImage(path);
+		document = engine.CreateFRDocument();
 		document.AddImageFile(newPath, null, null);
 		document.Process(documentProcessingParams);
 		String ret = document.getPlainText().getText();
 		System.out.println(ret);
+		document.Close();
+		document = null;
 		return ret;
 	}
 	

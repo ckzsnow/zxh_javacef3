@@ -167,8 +167,21 @@ public class CefQueryMessageRouterHandler extends CefMessageRouterHandlerAdapter
         	callback.success(new StringBuilder(("ok")).toString());
             return true;
         } else if(request.indexOf("GetIndianCode:") == 0) {
+        	StringBuilder sb = new StringBuilder();
         	String ret = ABBYYOCRUtils.ocrImage(Configuration.getValue("verify_code_save_path")+"\\code.jpg");
-        	callback.success(ret);
+        	System.out.println("GetIndianCode identify result : " + ret);
+        	for(int i=0; i<ret.length(); i++) {
+        		if(Character.isDigit(ret.charAt(i)) || (ret.charAt(i)>'a' && ret.charAt(i) < 'z') || (ret.charAt(i)>'A' && ret.charAt(i) < 'Z')) {
+        			sb.append(ret.charAt(i));
+        		}
+        	}
+        	System.out.println("GetIndianCode sb toString : " + sb.toString());
+        	callback.success(sb.toString());
+            return true;
+        } else if(request.indexOf("BackStep:") == 0) {
+        	TaskUtils.currentTaskStep = 1;
+        	TaskUtils.currentStepProcessing = false;
+			callback.success(new StringBuilder(("ok")).toString());
             return true;
         }
         return false;

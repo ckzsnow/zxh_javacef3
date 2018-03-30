@@ -222,7 +222,7 @@ public class MainFrame extends JFrame {
             		Map<String, String> map = list.get(TaskUtils.currentTaskStep-1);
             		String jsCode = map.get("js");
             		String targetUrl = map.get("url");
-            		if(url.indexOf(targetUrl) != -1) {
+            		if(url.indexOf(targetUrl) != -1 || url.indexOf("https://indianvisaonline.gov.in/visa/Registration") != -1) {
             			jsCode = "var data=" + TaskUtils.jsonData + ";" + jsCode;
             			System.out.println("js code : " + jsCode);
             			TaskUtils.currentTaskStep++;
@@ -332,11 +332,14 @@ public class MainFrame extends JFrame {
 							TaskUtils.finished = false;
 							TaskUtils.taskId = task_id;
 							TaskUtils.currentTaskType = task_type;
+							System.out.println("TaskUtils currentTaskType : " + task_type);
 							if("australia".equals(task_type)) {
 								TaskUtils.attachFilesList = (List<Map<String, Object>>) taskMap.get("attachFilesList");
 								System.out.println("TaskUtils attachFileList : " + TaskUtils.attachFilesList.toString());
 								TaskUtils.dataMap = taskMap;
 								System.out.println("TaskUtils dataMap : " + TaskUtils.dataMap.toString());
+							} else if("india".equals(task_type)) {
+								TaskUtils.fileUploadFilePath = (String)taskMap.get("photo");
 							}
 							TaskUtils.browser.loadURL(TaskUtils.stepMap.get(TaskUtils.currentTaskType).get(TaskUtils.currentTaskStep-1).get("url"));
 							beginTime = System.currentTimeMillis();
